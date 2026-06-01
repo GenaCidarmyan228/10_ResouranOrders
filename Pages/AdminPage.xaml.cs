@@ -39,7 +39,7 @@ namespace _10_ResoutanOrders.Pages
         {
             TxtLogin.Text = "";
             TxtPassword.Password = "";
-            CmbRole.SelectedIndex = 1; // Пользователь по умолчанию
+            CmbRole.SelectedIndex = 1;
             _selectedUser = null;
             BtnAdd.IsEnabled = true;
             BtnUpdate.IsEnabled = true;
@@ -70,7 +70,7 @@ namespace _10_ResoutanOrders.Pages
 
                private void BtnAdd_Click(object sender, RoutedEventArgs e)
         {
-            // 1. Валидация входных данных
+           
             if (string.IsNullOrWhiteSpace(TxtLogin.Text) || string.IsNullOrWhiteSpace(TxtPassword.Password))
             {
                 MessageBox.Show("Заполните логин и пароль!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
@@ -85,7 +85,7 @@ namespace _10_ResoutanOrders.Pages
 
             try
             {
-                // 2. Получение ID выбранной роли из Tag элемента ComboBox
+              
                 var selectedItem = CmbRole.SelectedItem as ComboBoxItem;
                 if (!int.TryParse(selectedItem.Tag.ToString(), out int roleId))
                 {
@@ -93,10 +93,10 @@ namespace _10_ResoutanOrders.Pages
                     return;
                 }
 
-                // 3. Создание и сохранение нового пользователя
+                
                 using (var db = new RestouranOrders_10Entities())
                 {
-                    // Проверка на уникальность логина
+                    
                     if (db.Users.Any(u => u.Login == TxtLogin.Text.Trim()))
                     {
                         MessageBox.Show("Пользователь с таким логином уже существует!", "Предупреждение", MessageBoxButton.OK, MessageBoxImage.Warning);
@@ -106,15 +106,15 @@ namespace _10_ResoutanOrders.Pages
                     Users newUser = new Users
                     {
                         Login = TxtLogin.Text.Trim(),
-                        Password = TxtPassword.Password.Trim(), // Внимание: в реальных проектах пароль нужно хешировать!
-                       IdRoles = roleId // Замените на имя вашего внешнего ключа в таблице Users (например, RoleID или IdRole)
+                        Password = TxtPassword.Password.Trim(), 
+                       IdRoles = roleId 
                     };
 
                     db.Users.Add(newUser);
                     db.SaveChanges();
                 }
 
-                // 4. Обновление UI
+                
                 MessageBox.Show("Пользователь успешно добавлен!", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
                 LoadUsers();
                 ClearForm();
@@ -147,7 +147,7 @@ namespace _10_ResoutanOrders.Pages
 
                 if (user != null)
                 {
-                    // Проверка на уникальность логина (если меняем)
+                  
                     if (user.Login != login && db.Users.Any(u => u.Login == login))
                     {
                         MessageBox.Show("Пользователь с таким логином уже существует", "Ошибка",
@@ -180,24 +180,46 @@ namespace _10_ResoutanOrders.Pages
             Button btn = sender as Button;
             if (btn == null) return;
 
-            int userId = (int)btn.Tag;
-
-            using (var db = new RestouranOrders_10Entities())
+          
+            if (btn.Tag == null || !int.TryParse(btn.Tag.ToString(), out int userId))
             {
-                var user = db.Users.Find(userId);
-                if (user != null)
-                {
-                    user.IsBlocked = false;
-                    user.Attempts = 0;
-                    db.SaveChanges();
-                }
+                MessageBox.Show("Не удалось определить ID пользователя", "Ошибка",
+                    MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
             }
 
-            LoadUsers(); 
+            try
+            {
+                using (var db = new RestouranOrders_10Entities())
+                {
+                    var user = db.Users.Find(userId);
+                    if (user != null)
+                    {
+                        user.IsBlocked = false;
+                        user.Attempts = 0;
+                        db.SaveChanges();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Пользователь не найден в базе данных", "Предупреждение",
+                            MessageBoxButton.OK, MessageBoxImage.Warning);
+                        return;
+                    }
+                }
 
-            MessageBox.Show("Пользователь разблокирован", "Успех",
-                MessageBoxButton.OK, MessageBoxImage.Information);
+                LoadUsers();
+
+                MessageBox.Show("Пользователь разблокирован", "Успех",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (Exception ex)
+            {
+                
+                MessageBox.Show($"Ошибка при работе с базой данных: {ex.Message}", "Фатальная ошибка",
+                    MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
+
 
         private void BtnNazad_Click(object sender, RoutedEventArgs e)
         {

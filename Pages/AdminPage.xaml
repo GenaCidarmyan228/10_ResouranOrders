@@ -17,14 +17,14 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <!-- Заголовок -->
+       
         <TextBlock Text="Управление пользователями" 
                    FontSize="24" 
                    FontWeight="Bold" 
                    HorizontalAlignment="Center"
                    Margin="0,0,0,20"/>
 
-        <!-- Форма добавления/редактирования -->
+      
         <Border Grid.Row="1" 
                 BorderBrush="Gray" 
                 BorderThickness="1" 
@@ -78,32 +78,32 @@
             </StackPanel>
         </Border>
 
-        <!-- Таблица пользователей -->
+      
         <DataGrid Grid.Row="2" 
                   x:Name="DgUsers" 
                   AutoGenerateColumns="False" 
                   SelectionChanged="DgUsers_SelectionChanged"
                   IsReadOnly="True">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="ID" Binding="{Binding Id_Polzovateli}" Width="50"/>
+                <DataGridTextColumn Header="ID" Binding="{Binding IdUsers}" Width="50"/>
                 <DataGridTextColumn Header="Логин" Binding="{Binding Login}" Width="150"/>
-                <DataGridTextColumn Header="Роль" Binding="{Binding Roli.Name_Roli}" Width="120"/>
-                <DataGridCheckBoxColumn Header="Заблокирован" Binding="{Binding Blocked}" Width="100"/>
-                <DataGridTextColumn Header="Попытки входа" Binding="{Binding Popitki_Vhoda}" Width="100"/>
+                <DataGridTextColumn Header="Роль" Binding="{Binding Roles.NameRoles}" Width="120"/>
+                <DataGridCheckBoxColumn Header="Заблокирован" Binding="{Binding IsBlocked}" Width="100"/>
+                <DataGridTextColumn Header="Попытки входа" Binding="{Binding Attempts}" Width="100"/>
 
-                <!-- Кнопка разблокировки -->
+              
                 <DataGridTemplateColumn Header="Разблокировка" Width="120">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Button x:Name="BtnUnblock" 
                             Content="Разблокировать" 
                             Click="BtnUnblock_Click" 
-                            Tag="{Binding Id_Polzovateli}"
+                            Tag="{Binding IdUsers}"
                             Background="#FF27AE60" 
                             Foreground="White"
                             BorderThickness="0"
                             Padding="5"
-                            Visibility="{Binding Blocked, Converter={StaticResource BoolToVisibility}}"/>
+                            Visibility="{Binding IsBlocked, Converter={StaticResource BoolToVisibility}}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
