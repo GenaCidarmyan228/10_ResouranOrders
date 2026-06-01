@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="070fc6fe38f24733b0801767b79c7411" Name="Diagram1">
+        <EntityTypeShape EntityType="RestouranOrders_10Model.Clients" Width="1.5" PointX="0.75" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="RestouranOrders_10Model.Materials" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="RestouranOrders_10Model.Orders" Width="1.5" PointX="3" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="RestouranOrders_10Model.Products" Width="1.5" PointX="3" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="RestouranOrders_10Model.Roles" Width="1.5" PointX="7.75" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="RestouranOrders_10Model.SostavOrder" Width="1.5" PointX="5.25" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="RestouranOrders_10Model.Specification" Width="1.5" PointX="5.25" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="RestouranOrders_10Model.sysdiagrams" Width="1.5" PointX="7.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RestouranOrders_10Model.Units" Width="1.5" PointX="0.75" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="RestouranOrders_10Model.Users" Width="1.5" PointX="10" PointY="1" IsExpanded="true" />
+        <AssociationConnector Association="RestouranOrders_10Model.FK_Orders_Clients" ManuallyRouted="false" />
+        <AssociationConnector Association="RestouranOrders_10Model.FK_Materials_Units" ManuallyRouted="false" />
+        <AssociationConnector Association="RestouranOrders_10Model.FK_Specifications_Materials" ManuallyRouted="false" />
+        <AssociationConnector Association="RestouranOrders_10Model.FK_OrderItems_Orders" ManuallyRouted="false" />
+        <AssociationConnector Association="RestouranOrders_10Model.FK_OrderItems_Products" ManuallyRouted="false" />
+        <AssociationConnector Association="RestouranOrders_10Model.FK_Products_Units" ManuallyRouted="false" />
+        <AssociationConnector Association="RestouranOrders_10Model.FK_Specifications_Products" ManuallyRouted="false" />
+        <AssociationConnector Association="RestouranOrders_10Model.FK_Users_Roles" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
